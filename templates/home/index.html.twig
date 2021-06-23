@@ -13,22 +13,4 @@
         <a class="btn btn-primary btn-lg" href="#" role="button">En savoir plus</a>
         </p>
     </div>
-
-    <h2 class="my-5">Les dernieres annonces...</h2>
-    <div class="row">
-        {% for anounce in anounces %}
-
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img-top" src="{{anounce.coverImage}}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title"> 
-                        <a href=""> {{ anounce.title }} </a>
-                    </h5>
-                    <p class="card-text"> {{ anounce.desription }} </p>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
 {% endblock %}

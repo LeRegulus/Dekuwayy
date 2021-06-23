@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Anounce;
 use App\Repository\AnounceRepository;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,21 +27,23 @@ class AnounceController extends AbstractController
     #[Route('/anounce', name: 'anounce')]
     public function index(): Response
     {
+        $anounces = $this->anounce->findAll();
         return $this->render('anounce/index.html.twig', [
+            'anounces' => $anounces,
             'controller_name' => 'AnounceController',
         ]);
     }
 
-    /**
-     * @Route(/anounce/show/{id}', name='anounce_show')
-     * @ParamConverter('anounce', class='App\Entity\Anounce, options={"mapping": {"anounce_id": "id"}}')
-     */
-    /*public function show($id, $anounce): Response
+    #[Route('/anounce/show/{id}', name: 'anounce_show')]
+    #[ParamConverter('anounce', class: 'App\Entity\Anounce')]
+    public function show(Anounce $anounce): Response
     {
-        //$anounces = $this->anounce->findBY($id);
+        $anounce = $this->anounce->find($anounce);
+        dump($anounce);
         return $this->render('anounce/show.html.twig', [
             'anounce' => $anounce,
             'controller_name' => 'AnounceController',
         ]);
-    }*/
+    }
+
 }
