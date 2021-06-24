@@ -4,17 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Anounce;
 use App\Repository\AnounceRepository;
-use Doctrine\ORM\Mapping\Id;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class AnounceController extends AbstractController
+class AdminController extends AbstractController
 {
+
     /**
-     * Undocumented variable
-     *
      * @var AnounceRepository
      */
     private $anounce;
@@ -24,22 +21,21 @@ class AnounceController extends AbstractController
         $this->anounce = $anounce;
     }
 
-    #[Route('/anounces', name: 'anounces_index')]
+    #[Route('/admin', name: 'admin_anounce_index')]
     public function index(): Response
     {
-        $anounces = $this->anounce->findAll();
-        return $this->render('anounce/index.html.twig', [
+         $anounces = $this->anounce->findAll();
+        return $this->render('admin/index.html.twig', [
             'anounces' => $anounces,
         ]);
     }
 
-    #[Route('/anounce/show/{slug}', name: 'anounce_show')]
+    #[Route('/admin/anonce/{id}', name: 'admin_anounce_edit')]
     #[ParamConverter('anounce', class: 'App\Entity\Anounce')]
-    public function show(Anounce $anounce): Response
+    public function edit(Anounce $anounce): Response
     {
-        return $this->render('anounce/show.html.twig', [
+        return $this->render('admin/edit.html.twig', [
             'anounce' => $anounce,
         ]);
     }
-
 }

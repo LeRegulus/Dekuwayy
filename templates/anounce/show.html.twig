@@ -3,22 +3,53 @@
 {% block title %}{% endblock %}
 
 {% block body %}
+<div class="text-center shadow-lg p-3 mb-5 rounded" style="background-image: url({{anounce.coverImage}}); height: 400px; color:white; font-size:80px">
+    <h1 style="color:white; font-size:100px">{{anounce.title}}</h1>
+	<p>{{anounce.price}} Fcfa</p>
+</div>
+<div class="row d.flex jusify-content-around">
+    <div class="col-md-8  shadow-lg p-3 mb-5 rounded">
 
-<div class="row">
-        {% for anounc in anounce %}
-
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img-top" src="{{anounc.coverImage}}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title"> 
-                        <a href=""> {{ anounc.title }} </a>
-                    </h5>
-                    <p class="card-text"> {{ anounc.desription }} </p>
-                </div>
-            </div>
+        <h3>Description:</h3>
+        <p>{{anounce.desription | nl2br }}</p>
+        <h3>Caractéristiques:</h3>
+        <table class="table table-striped">
+            <tr>
+                <td>Adresse:</td>
+                <td>{{anounce.address}}</td>
+            </tr>
+                <tr>
+                <td>Chambres:</td>
+                <td>{{anounce.rooms}}</td>
+            </tr>
+                <tr>
+                <td>Disponibilité:</td>
+                <td>{{anounce.isAvailable}}</td>
+            </tr>
+                <tr>
+                <td>Date de publication:</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-4 shadow-lg p-3 mb-5 rounded">
+        <h5>Proprietaire:</h5>
+        <h5>Adresse:</h5>
+        <h5>Contact:</h5>
+        <h5>Email:</h5>
+    </div>
+</div>
+<div class="row d.flex jusify-content-around">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6">
+        {% for comment in anounce.comments %}
+        <div class="col-md-8 shadow-lg p-3 mb-5 rounded">
+            <h5>{{comment.author}}</h5>
+            <p>{{comment.content | nl2br}}</p>
         </div>
         {% endfor %}
     </div>
+</div>
 
 {% endblock %}

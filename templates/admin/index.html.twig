@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer le annonces{% endblock %}
+
+{% block body %}
+<h1>Gérer le Annonces</h1>
+<table class="table table-striped">
+    <thead >  
+        <tr>      
+            <th</th>
+            <th</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for anounce in anounces %}
+        <tr>
+            <td>{{anounce.title}}</td>
+            <td>  <a href=" {{path('admin_anounce_edit', {'id': anounce.id})}} " class="btn btn-secondary">Editer</a> </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

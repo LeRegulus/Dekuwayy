@@ -23,10 +23,10 @@ class AppFixtures extends Fixture
         for ($i=0; $i<5; $i++){
             $anounce = new Anounce();
             $anounce->setTitle($faker->sentence(3, false))
-                ->setDesription($faker->text(200))
+                ->setDesription($faker->text(100))
                 ->setPrice(mt_rand(30000, 60000))
                 ->setAddress($faker->address())
-                ->setCoverImage('https://picsum.photos/200/300/?random='.mt_rand(1, 10000))
+                ->setCoverImage('https://picsum.photos/1200/500/?random='.mt_rand(1, 10000))
                 ->setRooms(mt_rand(0, 5))
                 ->setIsAvailable(mt_rand(0, 1))
                 ->setCreatedAt($faker->dateTimeBetween('-3 month', 'now'));

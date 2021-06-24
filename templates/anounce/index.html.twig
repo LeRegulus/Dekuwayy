@@ -3,18 +3,17 @@
 {% block title %}Hello AnounceController!{% endblock %}
 
 {% block body %}
-<h2 class="my-5">Les dernieres annonces...</h2>
+<h2 class="my-5">Toutes les annonces...</h2>
 <div class="row">
     {% for anounce in anounces %}
 
-    <div class="col-md-3">
-        <div class="card">
-            <img class="card-img-top" src="{{anounce.coverImage}}" alt="Card image cap">
+    <div class="col-md-3 d-flex align-items-stretch">
+        <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+            <img class="card-img-top" src=" {{ anounce.coverImage }} " alt="">
             <div class="card-body">
-                <h5 class="card-title"> 
-                    <a href=" {{path('anounce_show', {'id': anounce.id})}} "> {{ anounce.title }} </a>
-                </h5>
+                <h5 class="card-title"> {{ anounce.title }}</h5>
                 <p class="card-text"> {{ anounce.desription }} </p>
+                <a class=" card-botom btn btn-primary" href=" {{path('anounce_show', {'slug': anounce.slug})}} "> Details </a>
             </div>
         </div>
     </div>
