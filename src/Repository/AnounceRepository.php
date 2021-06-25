@@ -23,7 +23,7 @@ class AnounceRepository extends ServiceEntityRepository
     public function find4()
     {
         return $this->createQueryBuilder('a')
-            ->setMaxResults(4)
+            ->setMaxResults(2)
             ->getQuery()
             ->getResult()
         ;

@@ -3,9 +3,12 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-<div class="text-center shadow-lg p-3 mb-5 rounded" style="background-image: url({{anounce.coverImage}}); height: 400px; color:white; font-size:80px">
-    <h1 style="color:white; font-size:100px">{{anounce.title}}</h1>
-	<p>{{anounce.price}} Fcfa</p>
+<div class="shadow-lg p-3 mb-5 rounded" style="background-image: url({{anounce.coverImage}}); height: 400px;">
+    <div class='titre'>
+        <h1 style="font-size: 4rem; color: #fff;">{{anounce.title}}</h1>
+        <p> {{anounce.intro}} </p>
+	    <p>{{anounce.rooms}} Chambres à {{anounce.price}} Fcfa</p>
+    </div>
 </div>
 <div class="row d.flex jusify-content-around">
     <div class="col-md-8  shadow-lg p-3 mb-5 rounded">
@@ -22,14 +25,6 @@
                 <td>Chambres:</td>
                 <td>{{anounce.rooms}}</td>
             </tr>
-                <tr>
-                <td>Disponibilité:</td>
-                <td>{{anounce.isAvailable}}</td>
-            </tr>
-                <tr>
-                <td>Date de publication:</td>
-                <td></td>
-            </tr>
         </table>
     </div>
     <div class="col-md-4 shadow-lg p-3 mb-5 rounded">
@@ -39,14 +34,13 @@
         <h5>Email:</h5>
     </div>
 </div>
-<div class="row d.flex jusify-content-around">
-    <div class="col-md-6">
-    </div>
-    <div class="col-md-6">
+<div class="row d.flex">
+    <div class="col-md-8">
+        <h5>Commentaires :</h5>
         {% for comment in anounce.comments %}
-        <div class="col-md-8 shadow-lg p-3 mb-5 rounded">
-            <h5>{{comment.author}}</h5>
-            <p>{{comment.content | nl2br}}</p>
+        <div class="alert alert-dismissible alert-secondary shadow-sm p-3 mb-5 rounded">
+            <h5>{{comment.author}} a dit:</h5>
+            <p>"{{comment.content | nl2br}}"</p>
         </div>
         {% endfor %}
     </div>

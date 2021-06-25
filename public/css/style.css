@@ -1,0 +1,6 @@
+.titre, h2{
+    padding: 50px;
+    color: #fff;
+    text-shadow: 2px 2px 8px gray;
+    font-size: 2rem;
+}

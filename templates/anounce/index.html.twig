@@ -7,12 +7,12 @@
 <div class="row">
     {% for anounce in anounces %}
 
-    <div class="col-md-3 d-flex align-items-stretch">
+    <div class="col-md-4 d-flex align-items-stretch">
         <div class="card shadow-lg p-3 mb-5 bg-body rounded">
-            <img class="card-img-top" src=" {{ anounce.coverImage }} " alt="">
+            <img style="width: " class="card-img-top" src=" {{ anounce.coverImage }} " alt="">
             <div class="card-body">
-                <h5 class="card-title"> {{ anounce.title }}</h5>
-                <p class="card-text"> {{ anounce.desription }} </p>
+                <h5 style="font-size: 1rem; color:black;"class="card-title"> {{ anounce.title }}</h5>
+                <p class="card-text"> {{ anounce.intro}} </p>
                 <a class=" card-botom btn btn-primary" href=" {{path('anounce_show', {'slug': anounce.slug})}} "> Details </a>
             </div>
         </div>

@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Anounce;
 use App\Repository\AnounceRepository;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,7 +26,7 @@ class AnounceController extends AbstractController
     #[Route('/anounces', name: 'anounces_index')]
     public function index(): Response
     {
-        $anounces = $this->anounce->findAll();
+        $anounces = $this->anounce->find4();
         return $this->render('anounce/index.html.twig', [
             'anounces' => $anounces,
         ]);
