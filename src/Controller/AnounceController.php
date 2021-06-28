@@ -26,13 +26,13 @@ class AnounceController extends AbstractController
     #[Route('/anounces', name: 'anounces_index')]
     public function index(): Response
     {
-        $anounces = $this->anounce->find4();
+        $anounces = $this->anounce->findAll();
         return $this->render('anounce/index.html.twig', [
             'anounces' => $anounces,
         ]);
     }
 
-    #[Route('/anounce/show/{slug}', name: 'anounce_show')]
+    #[Route('/anounce/{slug}/{id}', name: 'anounce_show')]
     #[ParamConverter('anounce', class: 'App\Entity\Anounce')]
     public function show(Anounce $anounce): Response
     {

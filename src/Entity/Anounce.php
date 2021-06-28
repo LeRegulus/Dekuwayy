@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\AnounceRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Faker\Factory;
 use Cocur\Slugify\Slugify;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AnounceRepository;
+use DateTime;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AnounceRepository::class)
@@ -59,6 +62,7 @@ class Anounce
     /**
      * @ORM\Column(type="boolean")
      */
+    #[Assert\Choice(["Disponible", "Non Disponible"])]
     private $isAvailable;
 
     /**
@@ -95,6 +99,15 @@ class Anounce
     {
         $slugger = new Slugify();
         $this->slug = $slugger->slugify($this->title);
+    }
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initCreatedAt()
+    {
+        $faker = Factory::create('fr_FR');
+        $this->createdAt = new DateTime();
     }
 
     public function getId(): ?int

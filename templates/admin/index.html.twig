@@ -4,6 +4,10 @@
 
 {% block body %}
 <h1>Gérer le Annonces</h1>
+
+{% for message in app.flashes('success') %}
+    <div class='alert alert-success'>{{message}}</div>    
+{% endfor %}
 <table class="table table-striped">
     <thead >  
         <tr>      
@@ -15,9 +19,13 @@
         {% for anounce in anounces %}
         <tr>
             <td>{{anounce.title}}</td>
-            <td>  <a href=" {{path('admin_anounce_edit', {'id': anounce.id})}} " class="btn btn-secondary">Editer</a> </td>
+            <td>  <a href=" {{path('admin_anounce_edit', {'id': anounce.id})}} " class="btn btn-secondary">Editer</a> <a href=" {{path('admin_anounce_delete', {'id': anounce.id})}} " class="btn btn-danger">Supprimer</a>
+             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+<div class="text-right">
+    <a href="{{path('admin_anounce_new')}}" class="btn btn-primary">Nouvelle Annonce</a>    
+</div> 
 {% endblock %}

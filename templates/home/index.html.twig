@@ -5,12 +5,38 @@
 {% block body %}
     <h2 class="mt-5">Les Annonces</h2>
     <div class="jumbotron">
-        <h1 class="display-3">SAMA DËKUWAYY</h1>
-        <p class="lead">Bienvenu dans notre site d'annonces de logement.</p>
+        <h2 class="display-3">BIENVENU SUR SAMA DËKUWAYY</h2>
+        <p class="lead">Votre site d'annonces de logement.</p>
         <hr class="my-4">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <p class="lead">
         <a class="btn btn-primary btn-lg" href="#" role="button">En savoir plus</a>
         </p>
+    </div>
+
+    <h2 class="my-5"> Les dernières annonces...</h2>
+    <div class="row">
+        {% for anounce in anounces %}
+
+        <div class="col-md-4 d-flex align-items-stretch">
+            <div class="card shadow-lg  mb-5 bg-body rounded">
+                <div class="card-header">
+                    <h4>{{ anounce.rooms }} à Chambres {{ anounce.price }}</h4>
+                </div>
+                <img style="width: " class="card-img-top" src=" {{ anounce.coverImage }} " alt="">
+                <div class="card-body">
+                    <h5 style="font-size: 1rem; color:black;"class="card-title"> {{ anounce.title }}</h5>
+                    <p class="card-text"> {{ anounce.intro}} </p>
+                    <a class=" card-botom btn btn-primary" href=" {{path('anounce__home_show', {'slug': anounce.slug, 'id': anounce.id})}} "> Details </a>
+                </div>
+                <div class="card-footer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                </svg>{{ anounce.address }}
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 {% endblock %}

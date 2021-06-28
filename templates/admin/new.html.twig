@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+<h1>ENregistrer nouvelleannonce</h1>
+<div class="container">
+
+    {{form_start(form)}}
+    <div class="row">
+        <div class="col-md-4"> {{form_row(form.title)}} </div>
+        <div class="col-md-8"> {{form_row(form.intro)}} </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"> {{form_row(form.isAvailable)}} </div>
+        <div class="col-md-8"> {{form_row(form.rooms)}} </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8"> {{form_row(form.address)}} </div>
+        <div class="col-md-4"> {{form_row(form.price)}} </div>
+    </div>
+    <div class="row">
+        <div class="col"> {{form_row(form.desription)}} </div>
+    </div>
+
+    {{form_rest(form)}}
+    <input type="submit" class="btn btn-primary" value="Enregistrer">
+    {{form_end(form)}}
+
+</div>
+
+{% endblock %}

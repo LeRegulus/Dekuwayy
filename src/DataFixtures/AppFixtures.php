@@ -20,19 +20,19 @@ class AppFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         $slugger= new Slugify();
 
-        for ($i=0; $i<5; $i++){
+        for ($i=0; $i<15; $i++){
             $anounce = new Anounce();
             $anounce->setTitle($faker->sentence(3, false))
                 ->setDesription($faker->text(100))
                 ->setPrice(mt_rand(30000, 60000))
                 ->setAddress($faker->address())
                 ->setCoverImage('https://picsum.photos/1200/500/?random='.mt_rand(1, 10000))
-                ->setRooms(mt_rand(0, 5))
+                ->setRooms(mt_rand(2, 5))
                 ->setIsAvailable(mt_rand(0, 1))
                 ->setCreatedAt($faker->dateTimeBetween('-3 month', 'now'))
                 ->setIntro($faker->sentence(3, false));
 
-                for($j=0; $j<mt_rand(0, 7); $j++){
+                for($j=0; $j<mt_rand(1, 7); $j++){
                     $comment = new Comment();
                     $comment->setAuthor($faker->name())
                         ->setMail($faker->email())
@@ -42,7 +42,7 @@ class AppFixtures extends Fixture
                     //$em->persist($comment);
                     $anounce->addComment($comment);
                 }
-                for($k=0; $k<mt_rand(0, 5); $k++){
+                for($k=0; $k<mt_rand(1, 5); $k++){
                     $image= new Image();
                     $image->setImageUrl('https://picsum.photos/300/300/?random='.mt_rand(1, 10000))
                         ->setDescription($faker->sentence(3, False))

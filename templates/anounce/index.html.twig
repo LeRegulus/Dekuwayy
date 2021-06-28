@@ -4,16 +4,26 @@
 
 {% block body %}
 <h2 class="my-5">Toutes les annonces...</h2>
+
 <div class="row">
     {% for anounce in anounces %}
 
     <div class="col-md-4 d-flex align-items-stretch">
-        <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+        <div class="card shadow-lg  mb-5 bg-body rounded">
+            <div class="card-header">
+                <strong>{{ anounce.rooms }} à Chambres {{ anounce.price }}</strong>
+            </div>
             <img style="width: " class="card-img-top" src=" {{ anounce.coverImage }} " alt="">
             <div class="card-body">
                 <h5 style="font-size: 1rem; color:black;"class="card-title"> {{ anounce.title }}</h5>
                 <p class="card-text"> {{ anounce.intro}} </p>
-                <a class=" card-botom btn btn-primary" href=" {{path('anounce_show', {'slug': anounce.slug})}} "> Details </a>
+                <a class=" card-botom btn btn-primary" href=" {{path('anounce_show', {'slug': anounce.slug, 'id': anounce.id})}} "> Details </a>
+            </div>
+            <div class="card-footer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+            </svg>{{ anounce.address }}
+                
             </div>
         </div>
     </div>

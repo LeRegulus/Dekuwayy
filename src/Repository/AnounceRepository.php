@@ -20,10 +20,11 @@ class AnounceRepository extends ServiceEntityRepository
     }
 
 
-    public function find4()
+    public function findDisponible()
     {
         return $this->createQueryBuilder('a')
-            ->setMaxResults(2)
+            ->andWhere('a.isAvailable = 1')
+            ->setMaxResults(6)
             ->getQuery()
             ->getResult()
         ;
