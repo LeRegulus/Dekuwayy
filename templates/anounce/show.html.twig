@@ -1,57 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Anounce{% endblock %}
 
 {% block body %}
-<div class="shadow-lg" style="background-image: url({{anounce.coverImage}}); height: 400px;">
-    <div class="container" id="titre">
-        <p style="font-size: 4rem; color: #fff;">{{anounce.title}}</p>
-        <p> {{anounce.intro}} </p>
-	    <p>{{anounce.rooms}} Chambres à {{anounce.price}} Fcfa</p>
-    </div>
-</div>
-<div class="row d.flex mt-3 jusify-content-around">
-    <div class="col-md-8">
-        <div class="container">
-             <h3>Description:</h3>
-            <p>{{anounce.desription | nl2br }}</p>
-            <h3>Caractéristiques:</h3>
-            <table class="table table-hover">
-                <tr class="table-default">
-                    <td>Adresse:</td>
-                    <td>{{anounce.address}}</td>
-                </tr>
-                <tr class="table-primary">
-                    <td>Chambres:</td>
-                    <td>{{anounce.rooms}}</td>
-                </tr>
-            </table>
+<h1>Afficher Annonce</h1>
+    <div class="shadow-lg" style="bg-img: url(/uploads/coverImages/{{ anounce.imageName }});">
+        <div class="container" id="titre">
+            <p style="font-size: 4rem; color: #fff;">{{anounce.title}}</p>
+            <p> {{anounce.intro}} </p>
+            <p>{{anounce.rooms}} Chambres à {{anounce.price}} Fcfa</p>
         </div>
-        {% if anounce.comments.count() > 0 %}
-        <div class="container">
-             <h5>Commentaires :</h5>
-            {% for comment in anounce.comments %}
-            <div class="alert alert-dismissible alert-secondary shadow-sm p-3 mb-5 rounded">
-                <h5>{{comment.author}} a dit:</h5>
-                <p>"{{comment.content | nl2br}}"</p>
+    </div>
+    <div class="row d.flex mt-3 jusify-content-around">
+        <div class="col-md-8">
+            <div class="container">
+                <h3>Description:</h3>
+                <p>{{anounce.desription | nl2br }}</p>
+                <h3>Caractéristiques:</h3>
+                <table class="table table-hover">
+                    <tr class="table-default">
+                        <td>Adresse:</td>
+                        <td>{{anounce.address}}</td>
+                    </tr>
+                    <tr class="table-primary">
+                        <td>Chambres:</td>
+                        <td>{{anounce.rooms}}</td>
+                    </tr>
+                </table>
             </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-    </div>
-    <div class="col-md-4">
-        <div class="container shadow-lg p-3 mb-5 rounded">
-            <div class="row d-flex flex-column m-3">
-                <div>
-                     <img class="img-thumbnail rounded-circle" src="https://picsum.photos/100/100" alt="">
+            {% if anounce.comments.count() > 0 %}
+            <div class="container">
+                <h5>Commentaires :</h5>
+                {% for comment in anounce.comments %}
+                <div class="alert alert-dismissible alert-secondary shadow-sm p-3 mb-5 rounded">
+                    <h5>{{comment.author}} a dit:</h5>
+                    <p>"{{comment.content | nl2br}}"</p>
                 </div>
-                <div>
-                    <H3>Papa Alassane Seck</H3>
-                    <h6>alasaneseck94@gmail.com</h6>
-                    <h6>(+221) 78-130-18-56</h6>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            <div class="container shadow-lg p-3 mb-5 rounded">
+                <div class="row d-flex flex-column m-3">
+                    <div>
+                        <img class="img-thumbnail rounded-circle" src="https://picsum.photos/100/100" alt="">
+                    </div>
+                    <div>
+                        <H3>Papa Alassane Seck</H3>
+                        <h6>alasaneseck94@gmail.com</h6>
+                        <h6>(+221) 78-130-18-56</h6>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <a href="{{ path('anounce_index') }}" class="btn btn-success">Retour à la liste des annonces</a>
+
+    <a href="{{ path('anounce_edit', {'id': anounce.id}) }}" class="btn btn-primary">Modifier l'annonce</a>
+
+    {{ include('anounce/_delete_form.html.twig') }}
 {% endblock %}

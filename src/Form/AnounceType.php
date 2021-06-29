@@ -4,12 +4,10 @@ namespace App\Form;
 
 use App\Entity\Anounce;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnounceType extends AbstractType
 {
@@ -31,12 +29,12 @@ class AnounceType extends AbstractType
             ->add('rooms', null, [
                 'label' => 'Nombre de Chambres :'
             ])
-            ->add('isAvailable', ChoiceType::class, [
+            ->add('isAvailable', null, [
                 'label' => 'Disponibilité :',
-                'choices'  => [
-                    'Disponible' => true,
-                    'Non Disponible' => false,
-                ]
+            ])
+            ->add('coverImage', FileType::class, [
+                'label' => 'Image de couverture :',
+                'required' => false
             ])
             ->add('intro', null, [
                 'label' => 'Introduction:'

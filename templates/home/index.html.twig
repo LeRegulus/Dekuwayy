@@ -23,11 +23,11 @@
                 <div class="card-header">
                     <h4>{{ anounce.rooms }} à Chambres {{ anounce.price }}</h4>
                 </div>
-                <img style="width: " class="card-img-top" src=" {{ anounce.coverImage }} " alt="">
+                <img style="width: " class="card-img-top" src="{{vich_uploader_asset(anounce, 'coverImage')}}" alt="{{anounce.imageName}}">
                 <div class="card-body">
                     <h5 style="font-size: 1rem; color:black;"class="card-title"> {{ anounce.title }}</h5>
                     <p class="card-text"> {{ anounce.intro}} </p>
-                    <a class=" card-botom btn btn-primary" href=" {{path('anounce__home_show', {'slug': anounce.slug, 'id': anounce.id})}} "> Details </a>
+                    <a class=" card-botom btn btn-primary" href="{{path('anounce_show', {'id': anounce.id})}}"> Details </a>
                 </div>
                 <div class="card-footer">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">

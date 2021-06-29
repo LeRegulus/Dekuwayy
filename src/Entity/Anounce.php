@@ -2,18 +2,22 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Faker\Factory;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AnounceRepository;
-use DateTime;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=AnounceRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @Vich\Uploadable
  */
 class Anounce
 {
@@ -50,9 +54,20 @@ class Anounce
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="cover_images", fileNameProperty="imageName")
+     * 
+     * @var File|null
      */
     private $coverImage;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @var string|null
+     */
+    private $imageName;
 
     /**
      * @ORM\Column(type="integer")
@@ -62,7 +77,6 @@ class Anounce
     /**
      * @ORM\Column(type="boolean")
      */
-    #[Assert\Choice(["Disponible", "Non Disponible"])]
     private $isAvailable;
 
     /**
@@ -175,18 +189,6 @@ class Anounce
         return $this;
     }
 
-    public function getCoverImage(): ?string
-    {
-        return $this->coverImage;
-    }
-
-    public function setCoverImage(string $coverImage): self
-    {
-        $this->coverImage = $coverImage;
-
-        return $this;
-    }
-
     public function getRooms(): ?int
     {
         return $this->rooms;
@@ -291,6 +293,46 @@ class Anounce
     public function setIntro(string $intro): self
     {
         $this->intro = $intro;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imageName
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * Set the value of imageName
+     */
+    public function setImageName($imageName): self
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     *@return File|null
+     */
+    public function getCoverImage(): ?File
+    {
+        return $this->coverImage;
+    }
+
+    /**
+     *@param null|File
+     *@return Anounce
+     */
+    public function setCoverImage(?File $coverImage): Anounce
+    {
+        $this->coverImage = $coverImage;
+        if ($this->coverImage instanceof UploadedFile) {
+            $this->createdAt = new \DateTime('now');
+        }
 
         return $this;
     }

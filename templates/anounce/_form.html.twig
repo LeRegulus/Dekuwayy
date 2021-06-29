@@ -1,0 +1,15 @@
+<div class="form">
+    {{ form_start(form) }}
+        {{form_row(form.title, {attr: {class: 'form-control'} })}}
+        {{form_row(form.intro, {attr: {class: 'form-control'} })}}
+        {{form_row(form.isAvailable, {attr: {class: 'form-check'} })}}
+        {{form_row(form.rooms, {attr: {class: 'form-control'} })}}
+        {{form_row(form.address, {attr: {class: 'form-control'} })}}
+        {{form_row(form.price, {attr: {class: 'form-control'} })}}
+        {{form_row(form.desription, {attr: {class: 'form-control'} })}}
+        {{form_row(form.coverImage, {attr: {class: 'form-control'} })}}
+        <br><button class="btn btn-primary" type="submit">{{ button_label|default('Enregister') }}</button>
+    {{form_rest(form)}}
+    {{ form_end(form) }}
+</div>
+
