@@ -2,9 +2,25 @@
 
 {% block title %}Anounce{% endblock %}
 
+{% block stylesheets %}
+    <style>
+    #titre{
+        padding: 80px;
+        color: #fff;
+        text-shadow: 2px 2px 8px gray;
+        font-size: 2rem;
+        background-color:rgba(41, 47, 41, 0.5);
+        height: inherit;
+        width: 1110px;
+        height: 400px ;
+        background-image: url({{vich_uploader_asset(anounce, 'coverImage')}});    
+    }
+    </style>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+{% endblock %}
+
 {% block body %}
-<h1>Afficher Annonce</h1>
-    <div class="shadow-lg" style="bg-img: url(/uploads/coverImages/{{ anounce.imageName }});">
+    <div class="shadow-lg">
         <div class="container" id="titre">
             <p style="font-size: 4rem; color: #fff;">{{anounce.title}}</p>
             <p> {{anounce.intro}} </p>

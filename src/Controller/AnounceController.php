@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Anounce;
 use App\Form\AnounceType;
 use App\Repository\AnounceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,12 +13,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/anounce')]
 class AnounceController extends AbstractController
-{
-    #[Route('/', name: 'anounce_index', methods: ['GET'])]
-    public function index(AnounceRepository $anounceRepository): Response
+{   
+    public function __construct(AnounceRepository $repository, EntityManagerInterface $em)
     {
+        $this->repository = $repository;
+        $this->em = $em;
+    }
+
+    #[Route('/', name: 'anounce_index', methods: ['GET'])]
+    public function index(): Response
+    {   
+        $anounces = $this->repository->findOrder();
         return $this->render('anounce/index.html.twig', [
-            'anounces' => $anounceRepository->findAll(),
+            'anounces' => $anounces,
         ]);
     }
 
@@ -29,10 +37,9 @@ class AnounceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($anounce);
-            $entityManager->flush();
-
+            $this->em->persist($anounce);
+            $this->em->flush();
+            $this->addFlash(type:'success', message:'Annonce crée avec succés!');
             return $this->redirectToRoute('anounce_index');
         }
 
@@ -51,14 +58,14 @@ class AnounceController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'anounce_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Anounce $anounce): Response
+    public function edit(Anounce $anounce, Request $request): Response
     {
         $form = $this->createForm(AnounceType::class, $anounce);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+            $this->em->flush();
+            $this->addFlash(type:'success', message:'Annonce modifiée avec succés!');
             return $this->redirectToRoute('anounce_index');
         }
 
@@ -69,14 +76,13 @@ class AnounceController extends AbstractController
     }
 
     #[Route('/{id}', name: 'anounce_delete', methods: ['POST'])]
-    public function delete(Request $request, Anounce $anounce): Response
+    public function delete(Anounce $anounce, Request $request): Response
     {
         if ($this->isCsrfTokenValid('delete'.$anounce->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($anounce);
-            $entityManager->flush();
+            $this->em->remove($anounce);
+            $this->em->flush();
         }
-
+        $this->addFlash(type:'success', message:'Annonce supprimée avec succés!');
         return $this->redirectToRoute('anounce_index');
     }
 }

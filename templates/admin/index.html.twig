@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<h1>Gérer les Annonces</h1>
+
+{% for message in app.flashes('success') %}
+    <div class='alert alert-success'>{{message}}</div>
+{% endfor %}
+<table class="table table-striped">
+    <thead >  
+        <tr>      
+            <th>Titre</th>
+            <th>Prix</th>
+            <th>intro</th>
+            <th>Gérer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for anounce in anounces %}
+        <tr>
+            <td>{{anounce.title}}</td>
+            <td>{{anounce.price}}</td>
+            <td>{{anounce.intro}}</td>
+            <td>  <a href=" {{path('anounce_edit', {'id': anounce.id})}} " class="btn btn-secondary">Editer</a> <a href=" {{path('anounce_delete', {'id': anounce.id})}} "><i class="fas fa-trash"></i></a>
+             </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="text-right">
+    <a href="{{path('anounce_new')}}" class="btn btn-primary">Nouvelle Annonce</a>    
+</div> 
+{% endblock %}

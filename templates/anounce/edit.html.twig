@@ -5,9 +5,7 @@
 {% block body %}
     <h1>MOdifier Annonce</h1>
 
-    {{ include('anounce/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('anounce/_form.html.twig', {'button_label': 'Modifier'}) }}
 
     <a href="{{ path('anounce_index') }}" class="btn btn-success">Retour à la liste des annonces</a>
-
-    {{ include('anounce/_delete_form.html.twig') }}
 {% endblock %}

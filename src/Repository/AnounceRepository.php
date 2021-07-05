@@ -30,6 +30,15 @@ class AnounceRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findOrder()
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Anounce[] Returns an array of Anounce objects
     //  */
