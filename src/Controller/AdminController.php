@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Anounce;
+use App\Form\AnounceType;
 use App\Repository\AnounceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,7 @@ class AdminController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/admin', name: 'admin_index')]
+    #[Route('/admin', name: 'admin_anounce_index')]
     public function index(): Response
     {
         $anounces = $this->repository->findAll();
@@ -36,7 +37,7 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
             $this->addFlash(type:'success', message:'Annonce modifiée avec succés!');
-            return $this->redirectToRoute('admin_index');
+            return $this->redirectToRoute('admin_anounce_index');
         }
         return $this->render('admin/edit.html.twig', [
             'anounce' => $anounce,
@@ -44,24 +45,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/new_anounce/', name: 'admin_anounce_new')]
-    public function new(Request $request):Response
-    {
-        $anounce = new Anounce();
-        $form = $this->createForm(AnounceType::class, $anounce);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $this->em->persist($anounce);
-            $this->em->flush();
-            $this->addFlash(type:'success', message:'Annonce crée avec succés!');
-            return $this->redirectToRoute('admin_index');
-        }
-        return $this->render('admin/new.html.twig', [
-            'anounce' => $anounce,
-            'form' => $form->createView()
-        ]);
-
-    }
 
     #[Route('/admin/delete/anounce/{id}', name: 'admin_anounce_delete')]
     public function delete(Anounce $anounce){
@@ -69,7 +52,7 @@ class AdminController extends AbstractController
         $this->em->remove($anounce);
         $this->em->flush();
         $this->addFlash(type:'success', message:'Annonce supprimée avec succés!');
-        return $this->redirectToRoute('admin_index');
+        return $this->redirectToRoute('admin_anounce_index');
     }
 
 }

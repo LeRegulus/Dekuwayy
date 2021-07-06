@@ -120,7 +120,6 @@ class Anounce
      */
     public function initCreatedAt()
     {
-        $faker = Factory::create('fr_FR');
         $this->createdAt = new DateTime();
     }
 

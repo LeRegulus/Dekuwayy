@@ -23,8 +23,7 @@
             <td>{{anounce.title}}</td>
             <td>{{anounce.price}}</td>
             <td>{{anounce.intro}}</td>
-            <td>  <a href=" {{path('anounce_edit', {'id': anounce.id})}} " class="btn btn-secondary">Editer</a> <a href=" {{path('anounce_delete', {'id': anounce.id})}} "><i class="fas fa-trash"></i></a>
-             </td>
+            <td>  <a href=" {{path('admin_anounce_edit', {'id': anounce.id})}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>        <a href=" {{path('admin_anounce_delete', {'id': anounce.id})}} "><i class="fas fa-trash"></i></a></td>
         </tr>
         {% endfor %}
     </tbody>

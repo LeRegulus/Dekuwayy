@@ -71,6 +71,19 @@
             </div>
         </div>
     </div>
+    <div class="row d.flex mt-3 ml-10 jusify-content-around">
+        <div class="col-md-4">
+            <h3>Commentez l'annonce</h3>
+            {{form_start(commentform)}}
+                {{form_row(commentform.Author, {attr: {class: 'form-control'} })}}
+                {{form_row(commentform.mail, {attr: {class: 'form-control'} })}}
+                {{form_row(commentform.content, {attr: {class: 'form-control'} })}}
+                <button type="submit" class="primary">Commenter</button>
+            {{form_start(commentform)}}
+        </div>
+    </div>
+    <br><br><br>
+    
 
     <a href="{{ path('anounce_index') }}" class="btn btn-success">Retour à la liste des annonces</a>
 

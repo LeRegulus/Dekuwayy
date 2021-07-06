@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Anounce;
+use App\Entity\Comment;
 use App\Form\AnounceType;
+use App\Form\CommentType;
 use App\Repository\AnounceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,9 +52,20 @@ class AnounceController extends AbstractController
     }
 
     #[Route('/{id}', name: 'anounce_show', methods: ['GET'])]
-    public function show(Anounce $anounce): Response
-    {
+    public function show(Anounce $anounce, Request $request): Response
+    {   
+        $comment = new Comment();
+        $commentform = $this->createForm(CommentType::class, $comment);
+        $commentform->handleRequest($request);
+        if ($commentform->isSubmitted() && $commentform->isValid()) {
+            $comment->setAnounce($anounce);
+            $this->em->persist($comment);
+            $this->em->flush();
+            $this->addFlash(type:'success', message:'Commentaire posté avec succés!');
+            return $this->redirectToRoute('anounce_index');
+        }
         return $this->render('anounce/show.html.twig', [
+            'commentform' => $commentform->createView(),
             'anounce' => $anounce,
         ]);
     }
