@@ -99,6 +99,11 @@ class Anounce
      */
     private $intro;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="anounces")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -335,4 +340,17 @@ class Anounce
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 }

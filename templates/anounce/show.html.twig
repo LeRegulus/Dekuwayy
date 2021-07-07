@@ -63,7 +63,7 @@
                         <img class="img-thumbnail rounded-circle" src="https://picsum.photos/100/100" alt="">
                     </div>
                     <div>
-                        <H3>Papa Alassane Seck</H3>
+                        <H3>{{anounce.user.email}}</H3>
                         <h6>alasaneseck94@gmail.com</h6>
                         <h6>(+221) 78-130-18-56</h6>
                     </div>
@@ -79,7 +79,7 @@
                 {{form_row(commentform.mail, {attr: {class: 'form-control'} })}}
                 {{form_row(commentform.content, {attr: {class: 'form-control'} })}}
                 <button type="submit" class="primary">Commenter</button>
-            {{form_start(commentform)}}
+            {{form_end(commentform)}}
         </div>
     </div>
     <br><br><br>
