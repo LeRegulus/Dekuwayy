@@ -29,6 +29,7 @@ class Anounce
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $title;
 
@@ -39,12 +40,14 @@ class Anounce
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
     private $desription;
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\Type("number")
+     * @Assert\NotBlank
+     * @Assert\Type("float")
      */
     private $price;
 
@@ -71,6 +74,8 @@ class Anounce
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
      */
     private $rooms;
 

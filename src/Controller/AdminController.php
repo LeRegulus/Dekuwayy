@@ -38,7 +38,6 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($anounce);
             $anounce->setUser($this->getUser());
             $this->em->persist($anounce);
             $this->em->flush();
@@ -46,7 +45,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('anounce_index');
         }
 
-        return $this->render('anounce/new.html.twig', [
+        return $this->render('admin/new.html.twig', [
             'anounce' => $anounce,
             'form' => $form->createView(),
         ]);
