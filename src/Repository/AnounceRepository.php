@@ -39,6 +39,16 @@ class AnounceRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findUserAnounce($value)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.user = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Anounce[] Returns an array of Anounce objects
     //  */

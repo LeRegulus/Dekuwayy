@@ -57,20 +57,24 @@
             {% endif %}
         </div>
         <div class="col-md-4">
+        {% set user = anounce.user %}
             <div class="container shadow-lg p-3 mb-5 rounded">
                 <div class="row d-flex flex-column m-3">
                     <div>
                         <img class="img-thumbnail rounded-circle" src="https://picsum.photos/100/100" alt="">
                     </div>
                     <div>
-                        <H3>{{anounce.user.email}}</H3>
-                        <h6>alasaneseck94@gmail.com</h6>
-                        <h6>(+221) 78-130-18-56</h6>
+                        <H3>{{user.name}} {{user.lastName}} </H3>
+                        <h6>{{user.email}} </h6>
+                        <h6>{{user.address}} </h6>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% for message in app.flashes('success') %}
+        <div class='alert alert-success'>{{message}}</div>
+    {% endfor %}
     <div class="row d.flex mt-3 ml-10 jusify-content-around">
         <div class="col-md-4">
             <h3>Commentez l'annonce</h3>
@@ -78,16 +82,16 @@
                 {{form_row(commentform.Author, {attr: {class: 'form-control'} })}}
                 {{form_row(commentform.mail, {attr: {class: 'form-control'} })}}
                 {{form_row(commentform.content, {attr: {class: 'form-control'} })}}
-                <button type="submit" class="primary">Commenter</button>
+                <button type="submit" class="btn btn-primary">Commenter</button>
             {{form_end(commentform)}}
         </div>
     </div>
     <br><br><br>
     
 
-    <a href="{{ path('anounce_index') }}" class="btn btn-success">Retour à la liste des annonces</a>
+    <a href="{{ path('admin_anounce_index') }}" class="btn btn-success">Retour à la liste des annonces</a>
 
-    <a href="{{ path('anounce_edit', {'id': anounce.id}) }}" class="btn btn-primary">Modifier l'annonce</a>
+    <a href="{{ path('admin_anounce_edit', {'slug': anounce.slug}) }}" class="btn btn-primary">Modifier l'annonce</a>
 
     {{ include('anounce/_delete_form.html.twig') }}
 {% endblock %}

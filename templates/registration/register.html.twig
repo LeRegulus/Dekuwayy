@@ -11,6 +11,9 @@
     
     <h1>Register</h1>
     {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.name, {attr: {class: 'form-control'} }) }}
+        {{ form_row(registrationForm.lastName, {attr: {class: 'form-control'} }) }}
+        {{ form_row(registrationForm.address, {attr: {class: 'form-control'} }) }}
         {{ form_row(registrationForm.email, {attr: {class: 'form-control'} }) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password',

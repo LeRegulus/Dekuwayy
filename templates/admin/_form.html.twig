@@ -9,7 +9,7 @@
         {{form_row(form.desription, {attr: {class: 'form-control'} })}}
         {{form_row(form.coverImage, {attr: {class: 'form-control'} })}}
         <br><button class="btn btn-primary" type="submit">{{ button_label|default('Enregister') }}</button>
-    {{form_rest(form)}}
+    {{form_widget(form)}}
     {{ form_end(form) }}
 </div>
 

@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use DateTime;
-use Faker\Factory;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AnounceRepository;
@@ -11,8 +10,8 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AnounceRepository::class)
@@ -45,6 +44,7 @@ class Anounce
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Type("number")
      */
     private $price;
 

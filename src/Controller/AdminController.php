@@ -20,16 +20,40 @@ class AdminController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/admin', name: 'admin_anounce_index')]
+    #[Route('/admin/anounce', name: 'admin_anounce_index')]
     public function index(): Response
-    {
-        $anounces = $this->repository->findAll();
+    {   
+        $id = $this->getUser('id');
+        $anounces = $this->repository->findUserAnounce($id);
         return $this->render('admin/index.html.twig', [
             'anounces' => $anounces
         ]);
     }
 
-    #[Route('/admin/edit/anounce/{id}', name: 'admin_anounce_edit')]
+    #[Route('admin/anounce/new', name: 'admin_anounce_new')]
+    public function new(Request $request): Response
+    {
+        $anounce = new Anounce();
+        $form = $this->createForm(AnounceType::class, $anounce);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($anounce);
+            $anounce->setUser($this->getUser());
+            $this->em->persist($anounce);
+            $this->em->flush();
+            $this->addFlash(type:'success', message:'Annonce crée avec succés!');
+            return $this->redirectToRoute('anounce_index');
+        }
+
+        return $this->render('anounce/new.html.twig', [
+            'anounce' => $anounce,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    #[Route('/admin/anounce/edit/{slug}', name: 'admin_anounce_edit')]
     public function edit(Anounce $anounce, Request $request): Response
     {
         $form = $this->createForm(AnounceType::class, $anounce);
@@ -46,9 +70,8 @@ class AdminController extends AbstractController
     }
 
 
-    #[Route('/admin/delete/anounce/{id}', name: 'admin_anounce_delete')]
+    #[Route('/admin/anounce/delete/{slug}', name: 'admin_anounce_delete')]
     public function delete(Anounce $anounce){
-
         $this->em->remove($anounce);
         $this->em->flush();
         $this->addFlash(type:'success', message:'Annonce supprimée avec succés!');
