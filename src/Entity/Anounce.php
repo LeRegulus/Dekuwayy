@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AnounceRepository::class)
+ * @ORM\Table(name="anounce", indexes={@ORM\Index(columns={"title", "desription"}, flags={"fulltext"})}) 
  * @ORM\HasLifecycleCallbacks()
  * @Vich\Uploadable
  */

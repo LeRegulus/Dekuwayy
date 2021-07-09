@@ -16,27 +16,24 @@
     <h2 class="my-5"> Les dernières annonces...</h2>
     <div class="row">
         {% for anounce in anounces %}
-        <div class="col-md-4 d-flex  align-items-stretch">
+        <div class="col-md-3 d-flex  align-items-stretch">
             <div class="card shadow-lg text-center mb-5 bg-body rounded">
                 <div class="card-header">
-                    <p><strong> 
+                    <strong> 
                     {% if anounce.rooms < 2 %} 
                         Une Chambre 
                     {% else %}
                         {{ anounce.rooms }} Chambres
-                    {% endif %}  à {{ anounce.price | number_format(0, ',', ' ')}}Fcfa <br> <small>{{ anounce.comments.count()}} commentaires </small></strong></p>
+                    {% endif %}  à {{ anounce.price | number_format(0, ',', ' ')}}Fcfa <br> <small>{{ anounce.comments.count()}} commentaires </small></strong>
                 </div> 
-                <img style="width: 280px; height: 200px;" class="card-img-top" src="{{vich_uploader_asset(anounce, 'coverImage')}}" alt="{{anounce.imageName}}">
+                <img style="width: 240px; height: 100px;" class="card-img-top" src="{{vich_uploader_asset(anounce, 'coverImage')}}" alt="{{anounce.imageName}}">
                 <div class="card-body">
-                    <small style="font-size: 1rem; color:black;"class="card-title"> {{ anounce.title }}</small><br>
+                    <small style="font-size: 1rem; color:black;"class="card-title"> {{ anounce.title }}</small>
                     <a class=" card-botom btn btn-primary" href=" {{path('anounce_show', {'slug': anounce.slug})}} "> Details </a>
                 </div>
                 <div class="card-footer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                </svg><small>{{ anounce.address }}</small>
-                <br><small>Publié {{anounce.createdAt|ago(locale='fr')}}</small>
-                    
+                    <small><i class="fas fa-map-marker-alt">{{ anounce.address }}</i></small>
+                    <br><small>Publié {{anounce.createdAt|ago(locale='fr')}}</small>
                 </div>
             </div>
         </div>

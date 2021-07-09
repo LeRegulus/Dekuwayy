@@ -19,6 +19,15 @@ class AnounceRepository extends ServiceEntityRepository
         parent::__construct($registry, Anounce::class);
     }
 
+    public function search($mots){
+        $query = $this->createQueryBuilder('a');
+        $query->where('a.isAvailable = 1');
+        if($mots =! null){
+            $query->andWhere('MATCH_AGAINST(a.title, a.desription) AGAINST(:mots boolean)>0')
+            ->setParameter('mots', $mots);
+        }
+        return $query->getQuery()->getResult();
+    }
 
     public function findDisponible()
     {

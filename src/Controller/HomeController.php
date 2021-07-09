@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Anounce;
+use App\Form\SearchAnounceType;
 use App\Repository\AnounceRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {   
@@ -24,12 +26,19 @@ class HomeController extends AbstractController
     }
 
     #[Route('/', name: 'home')]
-    public function index(): Response
+    public function index(Request $request): Response
     {   
         $anounces = $this->anounce->findDisponible();
+
+        $form = $this->createForm(SearchAnounceType::class);
+        $form = $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $anounces = $this->anounce->search($form->get('mots')->getData());
+        }
+
         return $this->render('home/index.html.twig', [
             'anounces' => $anounces,
-            'controller_name' => 'HomeController',
+            'form' => $form->createView()
         ]);
     }
 
