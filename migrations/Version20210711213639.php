@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210709122754 extends AbstractMigration
+final class Version20210711213639 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,12 @@ final class Version20210709122754 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE FULLTEXT INDEX IDX_F4910DAE2B36786B49471DE8 ON anounce (title, desription)');
+        $this->addSql('ALTER TABLE user ADD image_nam VARCHAR(255)  NULL, ADD phon VARCHAR(255) NULL, DROP image_name, DROP phone');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP INDEX IDX_F4910DAE2B36786B49471DE8 ON anounce');
+        $this->addSql('ALTER TABLE user ADD image_name VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ADD phone VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, DROP image_nam, DROP phon');
     }
 }

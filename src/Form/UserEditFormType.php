@@ -14,41 +14,11 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class RegistrationFormType extends AbstractType
+class UserEditFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', null, [
-                'label' => 'Email:',
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'Accepter les Conditions:',
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'label' => 'Mot de passe:',
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Entrez votre mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit etre minimum{{ limit }} caracteres',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
             ->add('name', null,[
                 'label' => 'Prenom:',
                 'constraints' => [
@@ -73,6 +43,13 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ] )
+            ->add('profilImage', FileType::class, [
+                'label' => 'Photo de Profile :',
+                'required' => false
+            ])
+            ->add('phon', TelType::class, [
+                'label' => 'Numero de Telephone:',
+            ])
         ;
     }
 

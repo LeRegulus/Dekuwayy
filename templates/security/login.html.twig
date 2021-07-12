@@ -1,42 +1,42 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
+        {% block title %}Se connecter{% endblock %}
+        
+        {% block stylesheets %}
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link rel="stylesheet" href="/css/style1.css">
+        {% endblock %}
+        {% block javascript %}
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-{% block title %}Log in!{% endblock %}
+        <!------ Include the above in your HEAD tag ---------->
+        {% endblock %}
+        {% block body %}
+        <div class="container">
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <!-- Tabs Titles -->
 
-{% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+                <!-- Login Form -->
+                <form method="post">
+                    <h1 class="h3 mb-3 font-weight-normal">Connectez vous!</h1>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="fadeIn second" autocomplete="email" placeholder="Email" required autofocus>
+                    <input type="password" name="password" id="inputPassword" class="fadeIn third" autocomplete="current-password" placeholder="Mot de pass" required>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    {#
+                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                        See https://symfony.com/doc/current/security/remember_me.html
 
-    {% if app.user %}
-        <div class="mb-3">
-            Tu es connecté avec {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se Deconnecter</a>
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" name="_remember_me"> Remember me
+                            </label>
+                        </div>
+                    #}
+                    <input class="fadeIn fourth" type="submit" value="Connexion">
+                </form>
+
+            </div>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
         </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-{% endblock %}
+        {% endblock %}

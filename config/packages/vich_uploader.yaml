@@ -7,6 +7,10 @@ vich_uploader:
             upload_destination: '%kernel.project_dir%/public/uploads/coverImages'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
 
+        profil_images:
+            uri_prefix: /uploads/profiImages
+            upload_destination: '%kernel.project_dir%/public/uploads/profilImages'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
 
     #mappings:
     #    products:

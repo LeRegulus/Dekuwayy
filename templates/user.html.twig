@@ -13,6 +13,21 @@
         {% endblock %}
 
         {% block javascripts %}
+            <script>
+                /* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
+                function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+                document.getElementById("main").style.marginLeft = "250px";
+                document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+                }
+
+                /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+                function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+                document.getElementById("main").style.marginLeft = "0";
+                document.body.style.backgroundColor = "white";
+                }
+            </script>
             {#{{ encore_entry_script_tags('app') }}#}
             <script src="/js/jquery.min.js"></script>
             <script src="/js/popper.min.js"></script>
@@ -20,6 +35,7 @@
         {% endblock %}
     </head>
     <body>
+    <div id="main">
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="{{ path("home") }}">Sama Dëkuwayy</a>
@@ -41,10 +57,7 @@
                     {% if app.user %}
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('admin_anounce_index')}}">Gerer mes Annonces</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('admin_anounce_index')}}"><i class="fas fa-user">Mon Profil</i></a>
+                            <a class="nav-link" onclick="openNav()"><i class="fas fa-user"></i> Profil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt">{{app.user.name}}  Se Deconnecter</i></a>
@@ -65,8 +78,15 @@
             </nav>
         </header>
         <main class="container w-100 mt-2">
-            {% block body %}
+            <div id="mySidenav" class="sidenav bg-dark">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a class="nav-link" href="{{path('admin_anounce_index')}}">Gerer mes Annonces</a>
+                <a href="{{path('user_edit_profil', {'id': app.user.id})}}">Modifier mon Profil</a>
+                <a href="#">Se Deconnecter</a>
+            </div>
 
+            {% block body %}
+                
             
             {% endblock %}
         </main>
@@ -76,5 +96,6 @@
                 <a class="text-reset fw-bold" href="https://alassaneseck94@gmail.com">RegulusAlou</a>
             </div>
         </footer>
+    </div>
     </body>
 </html>

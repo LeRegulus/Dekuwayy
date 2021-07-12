@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Anounce;
 use App\Form\AnounceType;
+use App\Form\UserEditFormType;
 use App\Repository\AnounceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +20,30 @@ class AdminController extends AbstractController
     {
         $this->repository = $repository;
         $this->em = $em;
+    }
+
+    #[Route('/admin/user', name: 'user_index')]
+    public function user(){
+
+        return $this->render('admin/user.html.twig');
+    }
+
+
+    #[Route('/admin/user/profil/{id}', name: 'user_edit_profil')]
+    public function profilImage(User $user, Request $request): Response
+    {
+        $form = $this->createForm(UserEditFormType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->em->persist($user);
+            $this->em->flush();
+            $this->addFlash(type:'success', message:'Annonce modifiée avec succés!');
+            return $this->redirectToRoute('user_index');
+        }
+        return $this->render('admin/user_edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
     }
 
     #[Route('/admin/anounce', name: 'admin_anounce_index')]

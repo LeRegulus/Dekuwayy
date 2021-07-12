@@ -1,0 +1,18 @@
+{% extends "user.html.twig" %}
+
+{% block title %} Modifier le profil{% endblock %}
+
+{% block body %}
+
+<h1>Modifier le Profil</h1>
+    {{ form_start(form) }}
+        {{ form_row(form.name, {attr: {class: 'form-control'} }) }}
+        {{ form_row(form.lastName, {attr: {class: 'form-control'} }) }}
+        {{ form_row(form.address, {attr: {class: 'form-control'} }) }}
+        {{ form_row(form.profilImage, {attr: {class: 'form-control'} }) }}
+        {{ form_row(form.phon, {attr: {class: 'form-control'} }) }}
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
+    </div>
+
+{% endblock %}

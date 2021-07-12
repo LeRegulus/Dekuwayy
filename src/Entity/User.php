@@ -2,18 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @ORM\HasLifecycleCallbacks()
+ * @Vich\Uploadable
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -60,6 +64,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $address;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="profil_images", fileNameProperty="imageNam")
+     * 
+     * @var File|null
+     */
+    private $profilImage;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @var string|null
+     */
+    private $imageNam;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $phon;
 
 
     public function getId(): ?int
@@ -199,4 +224,77 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+     /**
+     *@return File|null
+     */
+    public function getProfilImage(): ?File
+    {
+        return $this->profilImage;
+    }
+
+    /**
+     *@param null|File
+     *@return User
+     */
+    public function setProfilImage(?File $profilImage): User
+    {
+        $this->profilImage = $profilImage;
+        if ($this->profilImage instanceof UploadedFile) {
+            $this->createdAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    public function getPhon(): ?string
+    {
+        return $this->phon;
+    }
+
+    public function setPhon(string $phon): self
+    {
+        $this->phon = $phon;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of imageNam
+     *
+     */ 
+    public function getImageNam()
+    {
+        return $this->imageNam;
+    }
+
+    /**
+     * Set the value of imageNam
+     *
+     */ 
+    public function setImageNam($imageNam)
+    {
+        $this->imageNam = $imageNam;
+
+        return $this;
+    }
+
+    public function serialize() {
+
+        return serialize(array(
+        $this->id,
+        $this->email,
+        $this->password,
+        ));
+        
+        }
+        
+        public function unserialize($serialized) {
+        
+        list (
+        $this->id,
+        $this->email,
+        $this->password,
+        ) = unserialize($serialized);
+    }
 }
