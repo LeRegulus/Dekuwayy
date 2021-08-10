@@ -28,6 +28,7 @@ class AppFixtures extends Fixture
                 ->setAddress($faker->address())
                 ->setRooms(mt_rand(2, 5))
                 ->setIsAvailable(mt_rand(0, 1))
+                ->setImageName('https://picsum.photos/300/300/?random='.mt_rand(1, 10000))
                 ->setIntro($faker->sentence(3, false));
 
                 for($j=0; $j<mt_rand(1, 7); $j++){
@@ -42,7 +43,7 @@ class AppFixtures extends Fixture
                 }
                 for($k=0; $k<mt_rand(1, 5); $k++){
                     $image= new Image();
-                    $image->setImageUrl('https://picsum.photos/300/300/?random='.mt_rand(1, 10000))
+                    $image->setImageUr('https://picsum.photos/300/300/?random='.mt_rand(1, 10000))
                         ->setDescription($faker->sentence(3, False))
                         ->setAnounce($anounce);
                     //$em->persist($image);
