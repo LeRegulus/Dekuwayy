@@ -20,7 +20,7 @@ class Image
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $imageUr;
+    private $imageUrl;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -38,14 +38,14 @@ class Image
         return $this->id;
     }
 
-    public function getImageUr(): ?string
+    public function getImageUrl(): ?string
     {
-        return $this->imageUr;
+        return $this->imageUrl;
     }
 
-    public function setImageUr(string $imageUr): self
+    public function setImageUrl(string $imageUrl): self
     {
-        $this->imageUr = $imageUr;
+        $this->imageUrl = $imageUrl;
 
         return $this;
     }
