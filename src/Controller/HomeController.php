@@ -28,7 +28,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(Request $request): Response
     {   
-        $anounces = $this->anounce->findDisponible();
+        $anounces = $this->anounce->findAll();
 
         $form = $this->createForm(SearchAnounceType::class);
         $form = $form->handleRequest($request);
