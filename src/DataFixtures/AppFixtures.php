@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
                 }
                 for($k=0; $k<mt_rand(1, 5); $k++){
                     $image= new Image();
-                    $image->setImageUr('https://picsum.photos/300/300/?random='.mt_rand(1, 10000))
+                    $image->setImageUrl('https://picsum.photos/300/300/?random='.mt_rand(1, 10000))
                         ->setDescription($faker->sentence(3, False))
                         ->setAnounce($anounce);
                     //$em->persist($image);
